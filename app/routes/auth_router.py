@@ -27,7 +27,8 @@ def login(user: LoginSchema, db: Session = Depends(get_db)):
             detail="Email ou senha incorretos",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=int(ACCESS_TOKEN_EXPIRE_MINUTES))
+    
     access_token = create_access_token(data={"sub": pessoa.email}, expires_delta=access_token_expires)
     return {"access_token": access_token, "token_type": "bearer"}
 

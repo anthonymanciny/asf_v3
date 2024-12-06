@@ -22,8 +22,5 @@ def root():
     return "teste do bichao"
 
 
-@app.get('/docker')
-def root():
-    return "eu sou o docker"
 
 app.include_router(api_router)

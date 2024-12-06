@@ -126,6 +126,16 @@ files = [
 ]
 
 [[package]]
+name = "decouple"
+version = "0.0.7"
+description = "Decoupling logic"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "decouple-0.0.7.tar.gz", hash = "sha256:c253c1cc62b76e9720a066f334552548c6de1884bc3bdf456ddb62d61b867b09"},
+]
+
+[[package]]
 name = "ecdsa"
 version = "0.19.0"
 description = "ECDSA cryptographic signature library (pure python)"
@@ -994,4 +1004,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.6.3)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6f55943c058d759533ef2f7e47fa21b2933f13d1c3ae21fa4ed259406fb8dff0"
+content-hash = "730a52ef59a2d2865882a9ca57fd14900585f52ec617d1160aebe0d294ea469d"

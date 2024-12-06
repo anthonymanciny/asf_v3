@@ -4,16 +4,14 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from decouple import config as config_decouple
+from decouple import config as decouple_config
 from app.models.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-
-DB_URL = config_decouple('DB_URL')
-config.set_main_option('sqlalchemy.url',DB_URL)
+config.set_main_option('sqlalchemy.url', decouple_config('DB_URL'))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -42,7 +40,7 @@ def run_migrations_offline() -> None:
 
     Calls to context.execute() here emit the given string to the
     script output.
-
+ww
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(

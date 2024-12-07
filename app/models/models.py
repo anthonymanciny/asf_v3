@@ -7,13 +7,10 @@ from sqlalchemy import (
     ForeignKey,
     CHAR,
     CheckConstraint,
-    Enum,
     Index
 )
 from sqlalchemy.orm import relationship
 from app.db.base import Base
-from enum import Enum as PyEnum
-
 
 # Tabela Instituicao
 class Instituicao(Base):
@@ -46,7 +43,6 @@ class EspacoInstituicao(Base):
     instituicao = relationship('Instituicao', back_populates='espacos')
     alocacoes = relationship('Alocacao', back_populates='espaco')
 
-
 # Tabela Pessoa
 class Pessoa(Base):
     __tablename__ = 'pessoas'
@@ -57,12 +53,11 @@ class Pessoa(Base):
     email = Column(String(50), unique=True, nullable=False, index=True)
     celular = Column(CHAR(11), CheckConstraint("length(celular) = 11"), unique=True, nullable=False)
     telefone = Column(CHAR(11), unique=True, nullable=True)
-    cpf = Column(CHAR(11),CheckConstraint("length(cpf) = 11"), unique=True, nullable=False )
+    cpf = Column(CHAR(11), CheckConstraint("length(cpf) = 11"), unique=True, nullable=False)
     data_nascimento = Column(Date, nullable=False)
     genero = Column(CHAR(1), nullable=True)
 
     participacoes = relationship('Participacao', back_populates='pessoa')
-
 
 # Tabela Alocacao
 class Alocacao(Base):
@@ -80,7 +75,6 @@ class Alocacao(Base):
     instituicao = relationship('Instituicao', back_populates='alocacoes')
     espaco = relationship('EspacoInstituicao', back_populates='alocacoes')
 
-
 # Tabela Evento
 class Evento(Base):
     __tablename__ = 'eventos'
@@ -92,7 +86,6 @@ class Evento(Base):
 
     alocacoes = relationship('Alocacao', back_populates='evento')
     participacoes = relationship('Participacao', back_populates='evento')
-
 
 # Tabela Participacao
 class Participacao(Base):

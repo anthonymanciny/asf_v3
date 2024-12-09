@@ -94,7 +94,7 @@ class Participacao(Base):
     id_participacao = Column(Integer, primary_key=True, autoincrement=True)
     id_evento = Column(Integer, ForeignKey('eventos.id_evento', ondelete='CASCADE'))
     id_pessoa = Column(Integer, ForeignKey('pessoas.id_pessoa', ondelete='CASCADE'))
-    tipo_participacao = Column(CHAR(1), nullable=False)
+    tipo_participacao = Column(CHAR(35), nullable=False)
 
     evento = relationship('Evento', back_populates='participacoes')
     pessoa = relationship('Pessoa', back_populates='participacoes')

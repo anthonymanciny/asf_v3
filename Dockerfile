@@ -10,16 +10,12 @@ ENV PYTHONPATH="/"
 COPY ./poetry.lock /poetry.lock
 COPY ./pyproject.toml /pyproject.toml
 
-# Instale dependências do sistema e configure o Poetry
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends curl build-essential libpq-dev && \
-    curl -sSL https://install.python-poetry.org | python3 - && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-interaction --no-ansi && \
-    apt-get remove -y curl && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /root/.cache
+RUN apt-get update -y && apt-get install curl -y \
+&& curl -sSL https://install.python-poetry.org | python3 - \
+&& poetry config virtualenvs.create false \
+&& poetry install \
+&& apt-get remove curl -y
+
 
 # Copie o código da aplicação
 COPY ./app /app

@@ -42,4 +42,4 @@ def delete_participacao(participacao_id: int, db: Session = Depends(get_db)):
 @participacao_router.get("/", response_model=list[ParticipacaoResponse])
 def list_participacoes(db: Session = Depends(get_db)):
     participacao_service = ParticipacaoService(db)
-    return participacao_service.list_participacoes()
+    return participacao_service.list_participacoes()    

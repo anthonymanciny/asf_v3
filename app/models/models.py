@@ -19,6 +19,7 @@ class Instituicao(Base):
     id_instituicao = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(35), nullable=False)
     email = Column(String(50), nullable=False)
+    senha = Column(String(60), nullable=False)
     endereco = Column(String(60), nullable=False)
     telefone = Column(CHAR(11), nullable=False)
     observacao = Column(String(100), nullable=True)
@@ -39,6 +40,7 @@ class EspacoInstituicao(Base):
     nome_espaco = Column(String(30), nullable=False)
     capacidade = Column(Integer, nullable=False)
     responsavel = Column(String(35), nullable=False)
+    disponibilidade = Column(String(35), nullable=False)
 
     instituicao = relationship('Instituicao', back_populates='espacos')
     alocacoes = relationship('Alocacao', back_populates='espaco')
@@ -83,6 +85,7 @@ class Evento(Base):
     nome_evento = Column(String(35), nullable=False)
     responsavel_evento = Column(String(35), nullable=False)
     status = Column(Integer, nullable=False)  # Agora trabalha com Status com valores 1 ou 0
+    qnt_voluntarios = Column(Integer, nullable=False)
 
     alocacoes = relationship('Alocacao', back_populates='evento')
     participacoes = relationship('Participacao', back_populates='evento')

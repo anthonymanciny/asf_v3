@@ -7,14 +7,13 @@ class AlocacaoRepository:
         self.db_session = db_session
 
     def create(self, alocacao_data: AlocacaoCreate) -> Alocacao:
-        # Cria uma nova alocação com os dados recebidos
-        alocacao = Alocacao(
-            id_evento=alocacao_data.id_evento,
-            id_instituicao=alocacao_data.id_instituicao,
-            id_espaco_instituicao=alocacao_data.id_espaco_instituicao,
-            datahora=alocacao_data.datahora,
-            status=alocacao_data.status,  # O valor já será passado corretamente
-            responsavel_local=alocacao_data.responsavel_local
+        alocacao = Alocacao(**alocacao_data.dict()
+            # id_evento=alocacao_data.id_evento,
+            # id_instituicao=alocacao_data.id_instituicao,
+            # id_espaco_instituicao=alocacao_data.id_espaco_instituicao,
+            # datahora=alocacao_data.datahora,
+            # status=alocacao_data.status,  # O valor já será passado corretamente
+            # responsavel_local=alocacao_data.responsavel_local
         )
         
         self.db_session.add(alocacao)

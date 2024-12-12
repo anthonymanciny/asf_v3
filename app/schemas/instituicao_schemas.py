@@ -13,7 +13,7 @@ class InstituicaoBase(BaseModel):
 
 
 class InstituicaoCreate(InstituicaoBase):
-    pass
+    senha: str
 
 
 class InstituicaoUpdate(InstituicaoBase):

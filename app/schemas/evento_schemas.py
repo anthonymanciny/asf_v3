@@ -7,6 +7,7 @@ class EventoBase(BaseModel):
     nome_evento: str
     responsavel_evento: str
     status: int
+    qnt_voluntarios:int
 
 class EventoCreate(EventoBase):
     pass

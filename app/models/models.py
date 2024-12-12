@@ -12,6 +12,24 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from app.db.base import Base
 
+
+# Tabela Pessoa
+class Pessoa(Base):
+    __tablename__ = 'pessoas'
+
+    id_pessoa = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String(35), nullable=False)
+    senha = Column(String(60), nullable=False)  # Deve ser hash e salt
+    email = Column(String(50), unique=True, nullable=False, index=True)
+    celular = Column(CHAR(11), CheckConstraint("length(celular) = 11"), unique=True, nullable=False)
+    telefone = Column(CHAR(11), unique=True, nullable=True)
+    cpf = Column(CHAR(11), CheckConstraint("length(cpf) = 11"), unique=True, nullable=False)
+    data_nascimento = Column(Date, nullable=False)
+    genero = Column(CHAR(1), nullable=True)
+
+    participacoes = relationship('Participacao', back_populates='pessoa')
+
+
 # Tabela Instituicao
 class Instituicao(Base):
     __tablename__ = 'instituicao_social'
@@ -31,6 +49,37 @@ class Instituicao(Base):
     alocacoes = relationship('Alocacao', back_populates='instituicao')
     espacos = relationship('EspacoInstituicao', back_populates='instituicao')
 
+
+
+# Tabela Evento
+class Evento(Base):
+    __tablename__ = 'eventos'
+
+    id_evento = Column(Integer, primary_key=True, autoincrement=True)
+    nome_evento = Column(String(35), nullable=False)
+    responsavel_evento = Column(String(35), nullable=False)
+    status = Column(Integer, nullable=False)  # Agora trabalha com Status com valores 1 ou 0
+    qnt_voluntarios = Column(Integer, nullable=False)
+
+    alocacoes = relationship('Alocacao', back_populates='evento')
+    participacoes = relationship('Participacao', back_populates='evento')
+
+
+
+# Tabela Participacao
+class Participacao(Base):
+    __tablename__ = 'participacao'
+
+    id_participacao = Column(Integer, primary_key=True, autoincrement=True)
+    id_evento = Column(Integer, ForeignKey('eventos.id_evento', ondelete='CASCADE'))
+    id_pessoa = Column(Integer, ForeignKey('pessoas.id_pessoa', ondelete='CASCADE'))
+    tipo_participacao = Column(CHAR(35), nullable=False)
+
+    evento = relationship('Evento', back_populates='participacoes')
+    pessoa = relationship('Pessoa', back_populates='participacoes')
+
+
+
 # Tabela EspacoInstituicao
 class EspacoInstituicao(Base):
     __tablename__ = 'espaco_instituicao'
@@ -45,21 +94,6 @@ class EspacoInstituicao(Base):
     instituicao = relationship('Instituicao', back_populates='espacos')
     alocacoes = relationship('Alocacao', back_populates='espaco')
 
-# Tabela Pessoa
-class Pessoa(Base):
-    __tablename__ = 'pessoas'
-
-    id_pessoa = Column(Integer, primary_key=True, autoincrement=True)
-    nome = Column(String(35), nullable=False)
-    senha = Column(String(60), nullable=False)  # Deve ser hash e salt
-    email = Column(String(50), unique=True, nullable=False, index=True)
-    celular = Column(CHAR(11), CheckConstraint("length(celular) = 11"), unique=True, nullable=False)
-    telefone = Column(CHAR(11), unique=True, nullable=True)
-    cpf = Column(CHAR(11), CheckConstraint("length(cpf) = 11"), unique=True, nullable=False)
-    data_nascimento = Column(Date, nullable=False)
-    genero = Column(CHAR(1), nullable=True)
-
-    participacoes = relationship('Participacao', back_populates='pessoa')
 
 # Tabela Alocacao
 class Alocacao(Base):
@@ -76,31 +110,6 @@ class Alocacao(Base):
     evento = relationship('Evento', back_populates='alocacoes')
     instituicao = relationship('Instituicao', back_populates='alocacoes')
     espaco = relationship('EspacoInstituicao', back_populates='alocacoes')
-
-# Tabela Evento
-class Evento(Base):
-    __tablename__ = 'eventos'
-
-    id_evento = Column(Integer, primary_key=True, autoincrement=True)
-    nome_evento = Column(String(35), nullable=False)
-    responsavel_evento = Column(String(35), nullable=False)
-    status = Column(Integer, nullable=False)  # Agora trabalha com Status com valores 1 ou 0
-    qnt_voluntarios = Column(Integer, nullable=False)
-
-    alocacoes = relationship('Alocacao', back_populates='evento')
-    participacoes = relationship('Participacao', back_populates='evento')
-
-# Tabela Participacao
-class Participacao(Base):
-    __tablename__ = 'participacao'
-
-    id_participacao = Column(Integer, primary_key=True, autoincrement=True)
-    id_evento = Column(Integer, ForeignKey('eventos.id_evento', ondelete='CASCADE'))
-    id_pessoa = Column(Integer, ForeignKey('pessoas.id_pessoa', ondelete='CASCADE'))
-    tipo_participacao = Column(CHAR(35), nullable=False)
-
-    evento = relationship('Evento', back_populates='participacoes')
-    pessoa = relationship('Pessoa', back_populates='participacoes')
 
 # Índices adicionais para desempenho
 Index('idx_email_pessoa', Pessoa.email)

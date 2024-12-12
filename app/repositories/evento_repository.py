@@ -8,10 +8,10 @@ class EventoRepository:
 
     def create(self, evento_data: EventoCreate) -> Evento:
         # Cria um novo evento com os dados recebidos
-        evento = Evento(
-            nome_evento=evento_data.nome_evento,
-            responsavel_evento=evento_data.responsavel_evento,
-            status=evento_data.status  # O valor já será passado corretamente
+        evento = Evento(**evento_data.dict()
+            # nome_evento=evento_data.nome_evento,
+            # responsavel_evento=evento_data.responsavel_evento,
+            # status=evento_data.status  # O valor já será passado corretamente
         )
         
         self.db_session.add(evento)

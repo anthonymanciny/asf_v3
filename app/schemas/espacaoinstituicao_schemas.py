@@ -5,6 +5,7 @@ class EspacoInstituicaoBase(BaseModel):
     nome_espaco: str
     capacidade: int
     responsavel: str
+    disponibilidade:str
 
     class Config:
         orm_mode = True

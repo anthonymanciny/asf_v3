@@ -15,7 +15,19 @@ class EspacoInstituicaoRepository:
         return espaco_instituicao
 
     def get_by_id(self, espaco_instituicao_id: int) -> EspacoInstituicao:
-        return self.db_session.query(EspacoInstituicao).filter_by(espaco_instituicao_id=espaco_instituicao_id).first()
+        return self.db_session.query(EspacoInstituicao).filter_by(id_espaco_instituicao=espaco_instituicao_id).first()
+    
+
+
+
+    
+    def list_by_id_instituicao(self, instituicao_id: int) -> EspacoInstituicao:
+        return self.db_session.query(EspacoInstituicao).filter_by(id_instituicao=instituicao_id).all()
+
+
+
+
+
 
     def update(self, espaco_instituicao_id: int, espaco_instituicao_data: EspacoInstituicaoUpdate) -> EspacoInstituicao:
         espaco_instituicao = self.get_by_id(espaco_instituicao_id)

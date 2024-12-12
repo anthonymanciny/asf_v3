@@ -12,6 +12,9 @@ class EspacoInstituicaoService:
 
     def get_espaco_instituicao(self, espaco_instituicao_id: int):
         return self.repository.get_by_id(espaco_instituicao_id)
+    
+    def list_instituicao(self, instituicao_id: int):
+        return self.repository.list_by_id_instituicao(instituicao_id)
 
     def update_espaco_instituicao(self, espaco_instituicao_id: int, espaco_instituicao_data: EspacoInstituicaoUpdate):
         return self.repository.update(espaco_instituicao_id, espaco_instituicao_data)
